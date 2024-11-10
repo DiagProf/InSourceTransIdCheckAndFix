@@ -20,14 +20,8 @@ This database (`DevTextToKeyMapperDb.db`) can be shared with a translation team.
 ### InSourceTransIdCheckAndFixConfig.json
 
 The configuration file, `InSourceTransIdCheckAndFixConfig.json`, must specify the absolute path to `DevTextToKeyMapperDb.db` for the Analyzer and CodeFix to function correctly. Additionally, this file allows customization of:
-- The name of the generated Translation class.
-- The names of factory methods used within the project.
-
-## Future Considerations
-
-This project provides a foundational approach to automating developer text translation in code and ensuring text quality from the start. Further enhancements may include:
-- Relative path support for the database.
-- Advanced integration for streamlined review and translation ID assignment.
+- The name of the Translation class.
+- The names of factory methods used within the Translation class.
 
 ## Usage
 
@@ -36,4 +30,4 @@ This project provides a foundational approach to automating developer text trans
 3. Run the analyzer and CodeFix to automatically mark developer strings with translation IDs and flag any text that requires review.
 4. Share `DevTextToKeyMapperDb.db` with the translation team for quality checking and ID assignment.
 
-This POC offers a practical solution for marking, reviewing, and managing developer-facing strings in code, ensuring a smoother translation workflow.
+This POC offers a practical solution for marking, reviewing, and managing developer-facing strings in code.
