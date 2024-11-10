@@ -2,9 +2,9 @@
 
 ## Project Overview
 
-**InSourceTransIdCheckAndFix** is a proof-of-concept (POC) project exploring the feasibility of using Roslyn Analyzers and CodeFixes to automatically mark developer-facing strings in code with a unique translation ID. This system is designed to streamline the translation process by ensuring that developer text strings are both appropriately marked and of high quality for translation.
+**InSourceTransIdCheckAndFix** is a proof-of-concept (POC) project exploring the feasibility of using Roslyn Analyzers and CodeFixes to automatically mark developer strings in code with a unique translation ID. This system is designed to streamline the translation process by ensuring that developer text strings are both appropriately marked and of high quality for translation.
 
-Since translation IDs are assigned by an external tool, this project also integrates a quality check for developer texts. Low-quality developer strings can lead to issues during translation, so this POC aims to proactively address such problems.
+Since translation IDs are assigned by an external tool, this tool (not part of this POC) also integrates a quality check for developer texts. Low-quality developer strings can lead to issues during translation.
 
 ## How It Works
 
