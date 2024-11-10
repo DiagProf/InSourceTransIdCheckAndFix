@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+	
+  <ItemGroup>
+    <!-- Entfernen Sie die ProjectReference zum Analyzer-Projekt -->
+     <ProjectReference Include="..\InSourceTransIdCheckAndFix\InSourceTransIdCheckAndFix.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer" /> 
+  </ItemGroup>
+
+  <!-- dev direkten Analyzer-DLL-Referenzen -->
+  
+  <ItemGroup>
+    <Analyzer Include="..\InSourceTransIdCheckAndFix\bin\$(Configuration)\netstandard2.0\InSourceTransIdCheckAndFix.dll" />
+    <Analyzer Include="..\InSourceTransIdCheckAndFix\bin\$(Configuration)\netstandard2.0\System.Text.Json.dll" />
+    <Analyzer Include="..\InSourceTransIdCheckAndFix\bin\$(Configuration)\netstandard2.0\LiteDB.dll" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="LiteDB" Version="5.0.21" />
+  </ItemGroup>
+  
+</Project>

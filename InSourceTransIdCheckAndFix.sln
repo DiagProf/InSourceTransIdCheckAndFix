@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35410.144
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InSourceTransIdCheckAndFix", "InSourceTransIdCheckAndFix\InSourceTransIdCheckAndFix.csproj", "{94B5AE8D-BBF5-476D-AAE2-50B5B0CDB5C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoConsoleApplicationWithText", "DemoConsoleApplicationWithText\DemoConsoleApplicationWithText.csproj", "{338FE720-CB66-4868-95ED-8AA1438AB6BA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{94B5AE8D-BBF5-476D-AAE2-50B5B0CDB5C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94B5AE8D-BBF5-476D-AAE2-50B5B0CDB5C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94B5AE8D-BBF5-476D-AAE2-50B5B0CDB5C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94B5AE8D-BBF5-476D-AAE2-50B5B0CDB5C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{338FE720-CB66-4868-95ED-8AA1438AB6BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{338FE720-CB66-4868-95ED-8AA1438AB6BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{338FE720-CB66-4868-95ED-8AA1438AB6BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{338FE720-CB66-4868-95ED-8AA1438AB6BA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

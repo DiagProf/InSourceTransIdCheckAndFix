@@ -1,0 +1,68 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>10.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+
+    <!-- NuGet packaging properties -->
+    <IncludeBuildOutput>true</IncludeBuildOutput>
+    <IsPackable>true</IsPackable>
+    <!-- Package metadata -->
+    <PackageId>InSourceTransIdCheckAndFix</PackageId>
+    <Version>1.0.2</Version>
+    <!-- Update the version as needed -->
+    <Authors>YourName</Authors>
+    <Description>In Source Translation Id Checker and Fixer</Description>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+
+    <NoWarn>RS1036,RS2007</NoWarn>
+    <!--  RS2007  -> https://github.com/dotnet/roslyn-analyzers/issues/5866-->
+   
+    <!-- Set this to true for NuGet packaging, false for development -->
+    <UseNuGetPackaging>false</UseNuGetPackaging>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="ReleaseTracking\AnalyzerReleases.Shipped.md" />
+    <AdditionalFiles Include="ReleaseTracking\AnalyzerReleases.Unshipped.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Package references -->
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.11.0" PrivateAssets="all" />
+    <PackageReference Include="System.Text.Json" Version="8.0.5" GeneratePathProperty="true" />
+    <PackageReference Include="LiteDB" Version="5.0.21" GeneratePathProperty="true" />
+  </ItemGroup>
+
+  <!-- Include dependencies in the NuGet package -->
+  <!-- dotnet pack -c Release -->
+  <ItemGroup Condition="'$(UseNuGetPackaging)' == 'true'">
+    <!-- These entries are needed for NuGet packaging -->
+    <None Include="$(OutputPath)$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/$(TargetFramework)/" />
+    <None Include="$(PkgSystem_Text_Json)\lib\netstandard2.0\System.Text.Json.dll" Pack="true" PackagePath="analyzers/dotnet/$(TargetFramework)/" />
+    <None Include="$(PkgLiteDB)\lib\netstandard2.0\LiteDB.dll" Pack="true" PackagePath="analyzers/dotnet/$(TargetFramework)/" />
+  </ItemGroup>
+
+  <!-- Commented out: Copy dependencies to output directory for direct project reference -->
+  <ItemGroup Condition="'$(UseNuGetPackaging)' != 'true'">
+    <!-- Development items -->
+    <!--System.Text.Json.dll--> 
+  <Content Include="$(PkgSystem_Text_Json)\lib\netstandard2.0\System.Text.Json.dll">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </Content>
+   <!--LiteDB.dll--> 
+  <Content Include="$(PkgLiteDB)\lib\netstandard2.0\LiteDB.dll">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </Content>
+  </ItemGroup>
+
+
+  <!-- Retain your existing resources -->
+  <ItemGroup>
+    <Compile Update="Resources.Designer.cs" DesignTime="True" AutoGen="True" DependentUpon="Resources.resx" />
+    <EmbeddedResource Update="Resources.resx" Generator="ResXFileCodeGenerator" LastGenOutput="Resources.Designer.cs" />
+  </ItemGroup>
+
+</Project>

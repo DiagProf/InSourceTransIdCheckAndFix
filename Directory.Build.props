@@ -1,0 +1,6 @@
+<Project>
+  <ItemGroup>
+    <!-- Include the configuration file as an Additional File for all projects -->
+    <AdditionalFiles Include="$(SolutionDir)InSourceTransIdCheckAndFixConfig.json" />
+  </ItemGroup>
+</Project>
