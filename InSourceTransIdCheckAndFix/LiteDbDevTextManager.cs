@@ -1,10 +1,10 @@
-﻿
-using LiteDB;
+﻿using LiteDB;
+
 namespace InSourceTransIdCheckAndFix
 {
     public class LiteDbDevTextManager : IDevTextManager
     {
-        private static readonly object LockObject = new object();
+        private static readonly object LockObject = new();
         private readonly string _databasePath;
 
         public LiteDbDevTextManager(string databasePath)
@@ -14,9 +14,9 @@ namespace InSourceTransIdCheckAndFix
 
         public string? GetKeyForText(string text)
         {
-            lock (LockObject)
+            lock ( LockObject )
             {
-                using (var db = new LiteDatabase(_databasePath))
+                using ( var db = new LiteDatabase(_databasePath) )
                 {
                     var collection = db.GetCollection<DevTextToKeyMapperRecord>("DevTextToKeyMapper");
                     var record = collection.FindOne(r => r.DeveloperText.Equals(text));
@@ -46,21 +46,21 @@ namespace InSourceTransIdCheckAndFix
 
         public void AddNewTranslationRequest(string text)
         {
-            lock (LockObject)
+            lock ( LockObject )
             {
-                using (var db = new LiteDatabase(_databasePath))
+                using ( var db = new LiteDatabase(_databasePath) )
                 {
                     var collection = db.GetCollection<NewDeveloperTextRecord>("NewDeveloperText");
 
                     // Check if the text already exists in the pending translations
-                    if (collection.Exists(r => r.DeveloperText == text))
+                    if ( collection.Exists(r => r.DeveloperText == text) )
                     {
                         return;
                     }
 
                     var newRecord = new NewDeveloperTextRecord
                     {
-                        DeveloperText = text,
+                        DeveloperText = text
                     };
 
                     collection.Insert(newRecord);
@@ -70,15 +70,15 @@ namespace InSourceTransIdCheckAndFix
 
         public List<string> GetPendingTranslations()
         {
-            lock (LockObject)
+            lock ( LockObject )
             {
-                using (var db = new LiteDatabase(_databasePath))
+                using ( var db = new LiteDatabase(_databasePath) )
                 {
                     var collection = db.GetCollection<NewDeveloperTextRecord>("NewDeveloperText");
                     var records = collection.FindAll();
 
-                    List<string> pendingTexts = new List<string>();
-                    foreach (var record in records)
+                    var pendingTexts = new List<string>();
+                    foreach ( var record in records )
                     {
                         pendingTexts.Add(record.DeveloperText);
                     }
@@ -90,48 +90,50 @@ namespace InSourceTransIdCheckAndFix
 
         public bool IsPendingTranslationDevText(string devText)
         {
-            using (var db = new LiteDatabase(_databasePath))
+            lock ( LockObject )
             {
-                var collection = db.GetCollection<NewDeveloperTextRecord>("NewDeveloperText");
-                var records = collection.FindAll();
-
-                foreach (var record in records)
+                using ( var db = new LiteDatabase(_databasePath) )
                 {
-                    if (devText.Equals(record.DeveloperText))
-                        return true;
+                    var collection = db.GetCollection<NewDeveloperTextRecord>("NewDeveloperText");
+                    var record = collection.FindOne(r => r.DeveloperText.Equals(devText));
+                    return record != null;
                 }
-
-                return false;
             }
         }
 
         public void UpdateTranslation(string key, string text)
         {
-            using (var db = new LiteDatabase(_databasePath))
+            lock ( LockObject )
             {
-                var collection = db.GetCollection<DevTextToKeyMapperRecord>("DevTextToKeyMapper");
-                var existingRecord = collection.FindOne(r => r.TextId.Equals(key));
+                using ( var db = new LiteDatabase(_databasePath) )
+                {
+                    var collection = db.GetCollection<DevTextToKeyMapperRecord>("DevTextToKeyMapper");
+                    var existingRecord = collection.FindOne(r => r.TextId.Equals(key));
 
-                if (existingRecord != null)
-                {
-                    existingRecord.DeveloperText = text;
-                    collection.Update(existingRecord);
-                }
-                else
-                {
-                    var newRecord = new DevTextToKeyMapperRecord
+                    if ( existingRecord != null )
                     {
-                        TextId = key,
-                        DeveloperText = text
-                    };
-                    collection.Insert(newRecord);
+                        existingRecord.DeveloperText = text;
+                        collection.Update(existingRecord);
+                    }
+                    else
+                    {
+                        var newRecord = new DevTextToKeyMapperRecord
+                        {
+                            TextId = key,
+                            DeveloperText = text
+                        };
+                        collection.Insert(newRecord);
+                    }
                 }
             }
         }
 
-        // Helper class to represent records in the LiteDB collections
+        // class to represent records in the LiteDB collections
         private class DevTextToKeyMapperRecord
         {
+            [BsonId] 
+            internal ObjectId Id { get; set; }
+
             public string TextId { get; set; } = string.Empty;
             public string DeveloperText { get; set; } = string.Empty;
             public DateTime DateLastDeveloperTextSeen { get; set; } // Used to remove unused developer texts later.
@@ -139,6 +141,9 @@ namespace InSourceTransIdCheckAndFix
 
         private class NewDeveloperTextRecord
         {
+            [BsonId] 
+            internal ObjectId Id { get; set; }
+
             public string DeveloperText { get; set; } = string.Empty;
         }
     }

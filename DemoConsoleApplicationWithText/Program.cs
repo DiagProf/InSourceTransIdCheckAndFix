@@ -28,7 +28,7 @@ internal class Program
         var inputOpen = Trs.On("26E25DC1", "Input open"); //DevText okay got translation id from external Tool
         var selfTest  = Trs.On("979C84DA", "Self-test"); //DevText okay got translation id from external Tool
         var ethernetTransceiver = Trs.On("AB0B6A64", "Ethernet transceiver"); //DevText okay got translation id from external Tool
-        var initiation = Trs.ToDo ("Initiation"); //is in DB as pending translation
+        var initiation = Trs.ToDo ("Initiation") ; //is in DB as pending translation
         var fullAreaAnimation = Trs.ToDo("Full area animation");  //not in DB
         var redWarningLamp = Trs.On("56711F47", "Red warning lamp"); //DevText okay got translation id from external Tool
         var bluetooth = Trs.Off("Bluetooth"); //No need for translation
